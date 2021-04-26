@@ -15,6 +15,7 @@
 class Log {
 public:
 
+    //получить экземпляр
     static Log * getInstance();
     void log(std::vector<unsigned char> data_for_logging);
 
@@ -24,6 +25,7 @@ private:
 
     std::mutex the_mutex;
     static Log * logger_instance;
+    std:: thread logging_thread_;
     std::condition_variable buffer_is_not_empty_;
     bool run;
     std::vector<class Packet> packets;

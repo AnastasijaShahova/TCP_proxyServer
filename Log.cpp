@@ -10,8 +10,10 @@ Log * Log::logger_instance = nullptr;
 Log::Log():
         run(true)
 {
+    logging_thread_ = std::thread(&Log::writeData, this);
     out_.open("log.txt", std::ios::app);
 }
+
 
 Log * Log::getInstance()
 {
@@ -70,4 +72,5 @@ Log::~Log()
 {
     out_.close();
     run = false;
+    logging_thread_.join();
 }
